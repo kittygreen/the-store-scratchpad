@@ -3,6 +3,10 @@ const product = findProduct(params.get('id'));
 
 if (!product) {
   window.location.href = 'index.html';
+} else if (product.ageRestricted && !agePassed()) {
+  /* Typing the URL straight in shouldn't skip the gate. */
+  window.location.href = 'age-gate.html?next=' +
+    encodeURIComponent('product.html?id=' + product.id);
 } else {
   document.title = product.name + ' — The Inconvenience Store';
 

@@ -89,6 +89,3 @@ function cartNeedsAgeCheck() {
   return PRODUCTS.some(p => p.ageRestricted && cart[p.id]);
 }
 
-function agePassed() {
-  return sessionStorage.getItem('ageVerified') === 'true';
-}

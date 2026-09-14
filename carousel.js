@@ -21,9 +21,7 @@ function flashSeconds(index) {
 function carouselCard(item, index) {
   /* Services link straight to the sign-up flow; products get a product page;
      the Ryanair listing goes off-site. */
-  const href = item.href
-    || item.externalUrl
-    || ('product.html?id=' + encodeURIComponent(item.id));
+  const href = item.href || productHref(item);
 
   let flag = '';
   if (item.flag) flag = '<span class="flag">' + item.flag + '</span>';
@@ -38,16 +36,19 @@ function carouselCard(item, index) {
   /* rel=noopener stops the opened page getting a handle on ours. */
   const target = item.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
 
+  /* Age-restricted products hide their name until you've been through. */
+  const label = item.hiddenName ? displayName(item) : item.name;
+
   const style = 'style="--flash:' + flashSeconds(index) +
                 ';--tilt:' + (item.tilt || 0) + 'deg"';
 
   return '<a class="card" href="' + href + '"' + target + ' ' + style + '>' +
            flag +
            '<span class="shot">' +
-             '<img src="' + item.imgGreen + '" alt="' + item.name + '">' +
+             '<img src="' + item.imgGreen + '" alt="' + label + '">' +
              '<img class="y" src="' + item.imgYellow + '" alt="" aria-hidden="true">' +
            '</span>' +
-           '<span class="name">' + item.name + '</span>' +
+           '<span class="name">' + label + '</span>' +
            '<span class="price">' + caption + '</span>' +
          '</a>';
 }

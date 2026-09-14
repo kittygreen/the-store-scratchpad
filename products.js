@@ -32,6 +32,8 @@ const PRODUCTS = [
   {
     id: 'sandpaper-dildo',
     name: 'Sandpaper Dildo',
+    hiddenName: 'XXX Product',   // the real name is the reward for the age gate
+    ageRestricted: true,
     notice: 'Not for use',
     price: 9423,
     inStock: true,
@@ -115,6 +117,28 @@ PRODUCTS.forEach(p => {
 });
 
 const BLURB = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
+
+/* Age verification state. Lives here rather than in cart.js because the
+   listings need it too — an age-restricted product shows a placeholder name
+   until someone has been through the gate. */
+function agePassed() {
+  return sessionStorage.getItem('ageVerified') === 'true';
+}
+
+function displayName(item) {
+  return (item.hiddenName && !agePassed()) ? item.hiddenName : item.name;
+}
+
+/* Where a listing should send you: through the gate first if the product is
+   age restricted and you haven't been. */
+function productHref(item) {
+  if (item.externalUrl) return item.externalUrl;
+  const target = 'product.html?id=' + encodeURIComponent(item.id);
+  if (item.ageRestricted && !agePassed()) {
+    return 'age-gate.html?next=' + encodeURIComponent(target);
+  }
+  return target;
+}
 
 function findProduct(id) {
   return PRODUCTS.find(p => p.id === id);

@@ -1,25 +1,25 @@
-/* The age gate.
+/* The age gate. Two checks, neither of which verifies anybody's age.
 
-   Rolling papers are not actually age restricted in the UK, so none of this
-   needs to exist. Better still, the question asks about the year the
-   customer was born — which is precisely the one year an eighteen year old
-   cannot possibly remember. The gate excludes exactly the people it claims
-   to be checking for. That is the joke; do not fix it.
+   Rolling papers aren't age restricted in the UK and neither is a novelty
+   sanding implement, so none of this needs to exist. Better still, check two
+   asks about 2008 — the year an eighteen year old was born, and therefore the
+   one year they cannot possibly remember. The gate excludes exactly the people
+   it claims to be checking for. That is the joke; do not fix it.
 
-   The birth year is derived from today's date so the question never
-   silently goes stale. */
+   Passing sets a session flag, which also reveals the real product name in
+   the listings. */
 
-const BIRTH_YEAR = new Date().getFullYear() - 18;
+const params = new URLSearchParams(window.location.search);
+const next = params.get('next') || 'packaging.html';
 
-const CHRISTMAS_NUMBER_ONES = {
-  2008: { answer: 'Alexandra Burke', wrong: ['Girls Aloud', 'Take That', 'Leona Lewis'] },
-  2009: { answer: 'Rage Against the Machine', wrong: ['Joe McElderry', 'Lady Gaga', 'JLS'] },
-  2010: { answer: 'Matt Cardle', wrong: ['Cee Lo Green', 'Rihanna', 'The Wanted'] },
-  2011: { answer: 'Military Wives', wrong: ['Little Mix', 'Coldplay', 'Olly Murs'] },
-  2012: { answer: 'The Justice Collective', wrong: ['James Arthur', 'Girls Aloud', 'Psy'] }
-};
+/* --- Check 1: select Tinky-Winky ---------------------------------------- */
 
-const quiz = CHRISTMAS_NUMBER_ONES[BIRTH_YEAR];
+const TINKY_OPTIONS = [
+  { id: 'tinky-winky', label: 'Tinky-Winky', correct: true },
+  { id: 'dipsy',       label: 'Dipsy' },
+  { id: 'laa-laa',     label: 'Laa-Laa' },
+  { id: 'po',          label: 'Po' }
+];
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -29,33 +29,50 @@ function shuffle(array) {
   return array;
 }
 
-if (!quiz) {
-  /* Past the end of the lookup table. Let people through rather than
-     locking the basket behind a question with no answer. */
-  sessionStorage.setItem('ageVerified', 'true');
-  window.location.href = 'packaging.html';
-} else {
-  document.getElementById('question').textContent =
-    'To prove you are over 18, name the UK Christmas number one in ' +
-    BIRTH_YEAR + ', the year you were born.';
+document.getElementById('tinkyGrid').innerHTML =
+  shuffle(TINKY_OPTIONS.slice()).map(option =>
+    '<button class="tinky" data-correct="' + (option.correct ? 'yes' : 'no') + '">' +
+      '<img src="img/' + option.id + '.svg" alt="' + option.label + '">' +
+    '</button>'
+  ).join('');
 
-  document.getElementById('options').innerHTML =
-    shuffle(quiz.wrong.concat([quiz.answer]))
-      .map(name => '<p><button class="btn" data-answer="' + name + '">' + name + '</button></p>')
-      .join('');
-
-  document.querySelectorAll('[data-answer]').forEach(button => {
-    button.addEventListener('click', () => {
-      if (button.dataset.answer === quiz.answer) {
-        sessionStorage.setItem('ageVerified', 'true');
-        window.location.href = 'packaging.html';
-      } else {
-        document.getElementById('feedback').textContent =
-          'Incorrect. You were, admittedly, a baby at the time.';
-      }
-    });
+document.querySelectorAll('.tinky').forEach(button => {
+  button.addEventListener('click', () => {
+    if (button.dataset.correct === 'yes') {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+    } else {
+      document.getElementById('tinkyFeedback').textContent =
+        'That is not Tinky-Winky. Look at the bag.';
+    }
   });
-}
+});
+
+/* --- Check 2: the 2008 Euros -------------------------------------------- */
+
+const EURO_ANSWER = 'Spain';
+const EURO_OPTIONS = ['Spain', 'Germany', 'Italy', 'Netherlands'];
+
+document.getElementById('euroForm').innerHTML =
+  shuffle(EURO_OPTIONS.slice()).map((team, i) =>
+    '<p><label><input type="radio" name="euro" value="' + team + '"> ' + team + '</label></p>'
+  ).join('');
+
+document.getElementById('euroSubmit').addEventListener('click', () => {
+  const picked = document.querySelector('input[name=euro]:checked');
+  if (!picked) {
+    document.getElementById('euroFeedback').textContent = 'Choose one.';
+    return;
+  }
+  if (picked.value === EURO_ANSWER) {
+    sessionStorage.setItem('ageVerified', 'true');
+    if (typeof logEvent === 'function') logEvent('AgeVerified', { next: next });
+    window.location.href = next;
+  } else {
+    document.getElementById('euroFeedback').textContent =
+      'Incorrect. You were, admittedly, a baby at the time.';
+  }
+});
 
 /* Browsers block autoplay audio until the user has interacted with the page,
    so the siren is behind a button. It is also therefore muteable, which
