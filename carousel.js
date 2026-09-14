@@ -8,7 +8,7 @@
    the track width lands half a gap short of where the second copy begins and
    the loop visibly jumps. */
 
-const CYCLE_SECONDS = 180;
+const CYCLE_SECONDS = 150;
 
 /* Each card flashes between its green and yellow shot on its own rhythm.
    Kept between 1.3s and 2.7s — well under three flashes a second, which is
@@ -44,12 +44,16 @@ function carouselCard(item, index) {
 
   const pixel = item.pixelated ? ' pixelated' : '';
 
+  /* The flag comes AFTER the shot deliberately. The yellow image runs an
+     opacity animation, which some browsers promote to its own compositing
+     layer and then paint above lower-z siblings regardless of z-index. Later
+     in the DOM plus a z-index means it wins either way. */
   return '<a class="card' + pixel + '" href="' + href + '"' + target + ' ' + style + '>' +
-           flag +
            '<span class="shot">' +
              '<img src="' + (item.listGreen || item.imgGreen) + '" alt="' + label + '">' +
              '<img class="y" src="' + (item.listYellow || item.imgYellow) + '" alt="" aria-hidden="true">' +
            '</span>' +
+           flag +
            '<span class="name">' + label + '</span>' +
            '<span class="price">' + caption + '</span>' +
          '</a>';

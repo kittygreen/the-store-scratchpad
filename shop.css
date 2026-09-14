@@ -86,7 +86,7 @@ h1, h2, .impact, button {
 .track {
   display: flex;
   width: max-content;
-  animation: slide 180s linear infinite;
+  animation: slide 150s linear infinite;
 }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -131,8 +131,9 @@ h1, h2, .impact, button {
 .card .price { display: block; padding: 4px 10px 12px; font-weight: bold; }
 
 .flag {
-  /* Above the shot — both are absolutely positioned, and the shot comes later
-     in the DOM, so without this the flag is painted underneath the photo. */
+  /* Belt and braces: the flag is also placed after the shot in the DOM, since
+     the animated image can be composited above lower-z siblings in some
+     browsers. See the note in carousel.js. */
   z-index: 2;
   position: absolute; top: 8px; right: -6px;
   background: #C0122B; color: #fff;

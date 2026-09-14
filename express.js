@@ -29,4 +29,4 @@ floor.innerHTML = sorted.map((product, i) => {
          card + '</div>';
 }).join('');
 
-startNagTimer({ seconds: 5, message: 'need more time?', page: 'express' });
+startNagTimer({ seconds: 3, message: 'need more time?', page: 'express' });
