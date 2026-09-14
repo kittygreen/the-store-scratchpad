@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/cs.ico" type="image/x-icon">
+    <title>Complete Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+      <div class="timer-bar" id="timerBar">You have 5 minutes to fill out this form.</div>
+        <h1>Enter your name to complete sign up</h1>
+        <p class="tiny">Note: first name must be lower case and last name must be upper case</p>
+        <form id="signupForm">
+            <label for="firstName">first name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">LAST NAME:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+            <label>
+              <input type="checkbox" id="optOut" name="optOut" checked> If you don't want to not receive emails or texts from us, don't unclick this box
+            </label>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <p id="errorMessage">There was an error with your submission. Please try again.</p>
+            <button id="errorContinueButton">Continue</button>
+        </div>
+    </div>
+
+      <!-- Survey Modal -->
+  <div id="surveyModal" class="modal">
+      <div class="modal-content">
+          <p>How are you enjoying our site? Your feedback is important to us.</p>
+          <input type="range" id="feedbackSlider" min="1" max="5" value="3">
+          <span id="feedbackValue">3*</span>
+          <button id="submitFeedbackButton">Submit</button>
+      </div>
+  </div>
+
+  <!-- Additional Feedback Modal -->
+  <div id="additionalFeedbackModal" class="modal">
+      <div class="modal-content">
+          <p>Can you give us more feedback on why this hasn't been a 5* experience?</p>
+          <textarea id="additionalFeedback" rows="4" cols="50"></textarea>
+          <button id="submitAdditionalFeedbackButton">Submit</button>
+      </div>
+  </div>
+    <script src="log.js"></script>
+    <script src="signup-form.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const sessionToken = sessionStorage.getItem('signupToken');
+
+            if (!token || token !== sessionToken) {
+                window.location.href = 'index.html'; // Redirect to main page if token is invalid
+            }
+        });
+    </script>
+</body>
+
+</html>

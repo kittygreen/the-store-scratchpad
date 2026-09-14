@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Verification — The Inconvenience Store</title>
+  <link rel="icon" href="img/cs.ico" type="image/x-icon">
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="age-warn">
+      <h2>&#9888; AGE VERIFICATION REQUIRED &#9888;</h2>
+      <p class="impact">YOUR BASKET CONTAINS AN AGE RESTRICTED ITEM</p>
+      <p style="font-family:'Courier New',monospace;font-size:13px">Wet Rizzlas &mdash; 18+</p>
+      <button class="btn" id="siren" style="margin-top:10px">&#128266; ENABLE SIREN</button>
+    </div>
+
+    <div style="background:#fff;border:5px solid #111;padding:24px;margin-top:24px">
+      <h2 id="question"></h2>
+      <div id="options"></div>
+      <p id="feedback" class="impact" style="color:#C0122B"></p>
+    </div>
+  </div>
+
+  <audio id="sirenAudio" src="music/benny.mp3" loop></audio>
+  <script src="log.js"></script>
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script src="age-gate.js"></script>
+</body>
+</html>

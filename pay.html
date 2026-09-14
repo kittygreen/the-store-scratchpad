@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay — The Inconvenience Store</title>
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+  <div class="bar"><h1>Checkout</h1></div>
+  <div class="wrap">
+    <h2>Payment</h2>
+    <div style="background:#fff;border:4px dashed #111;padding:22px">
+      <p><strong>This is where Stripe Checkout goes.</strong></p>
+      <p>The basket below is the line-item list to hand to Stripe. Each line
+         maps to a fixed Price created in the Stripe dashboard; only the
+         quantities come from here.</p>
+      <pre id="lineItems" style="overflow-x:auto;background:#f4f4f4;padding:12px"></pre>
+    </div>
+    <p><a href="shop.html">&lsaquo; back to the shop</a></p>
+  </div>
+  <script src="log.js"></script>
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script src="pay.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign up, if you think you got what it takes">
+
+  <!-- Open Graph meta tags -->
+  <meta property="og:url" content="https://www.pleaseinconvenience.me/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Inconvenience Store">
+  <meta property="og:description" content="Sign up, if you think you got what it takes">
+  <meta property="og:image" content="https://cache.dpg.media/pavirfnndvsz/images/8b1de134-383c-11ee-80b3-da6a62392499/boomtown_the_twin_trail_blxfn_website_image_nxxq_standard.jpg?20230811124527">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="640">
+
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inconvenience Store">
+  <meta name="twitter:description" content="Sign up, if you think you got what it takes">
+  <meta name="twitter:image" content="https://cache.dpg.media/pavirfnndvsz/images/8b1de134-383c-11ee-80b3-da6a62392499/boomtown_the_twin_trail_blxfn_website_image_nxxq_standard.jpg?20230811124527">
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/cs.ico" type="image/x-icon">
+    <title>The Inconvenience Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <audio id="popsound" src="music/pop.mp3"></audio>
+  <audio id="charliSound" src="music/360.mp3"></audio>
+  <audio id="bennySound" src="music/benny.mp3"></audio>
+
+  <div id="overlay" class="overlay rush">
+      <p class="introtext"></p>
+      <p class="introtext"></p>
+      <p class="introtext"></p>
+      <p class="introtext"></p>
+      <p class="introtext"></p>
+  </div>
+
+  <button id="signupButton">Sign Up</button>
+    <div id="captchaModal" class="modal">
+        <div class="modal-content">
+            <p>We've detected suspicious activity from your browser. Please verify that you are a human by selecting all images that are brat until there are none left.</p>
+            <p> Once there are none left, CLICK VERIFY below</p>
+            <div id="imageGrid" class="image-grid">
+                <!-- Images will be loaded here by JavaScript -->
+            </div>
+            <button id="verifyButton" style="display: none;">Verify</button>
+        </div>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <p id="errorMessage">There was an error with your submission. Please try again.</p>
+            <button id="continueButton">Continue</button>
+        </div>
+    </div>
+
+    <!-- Popup 1 -->
+    <div id="popup1" class="popup">
+        <div class="popup-content">
+            <span class="close-btn top-right" id="close-btn1">&times;</span>
+            <a href="https://www.depop.com/theinconveniencestore/" >
+                <img src="img/ad1.png" alt="Advertisement 1" class="popup-image">
+            </a>
+        </div>
+    </div>
+
+    <!-- Popup 2 -->
+    <div id="popup2" class="popup">
+        <div class="popup-content">
+            <span class="close-btn top-left" id="close-btn2">&times;</span>
+            <a href="https://www.google.com/search?q=why+does+my+pee+smell+like+fish&sca_esv=1e7101d6c772e40c&sca_upv=1&source=hp&ei=uZeuZvvDNe2UhbIPlfSpKQ&iflsig=AL9hbdgAAAAAZq6lydyEtpVue7N-NNoTLVspR8QCvqga&oq=why+does+my+pee+sme&gs_lp=Egdnd3Mtd2l6IhN3aHkgZG9lcyBteSBwZWUgc21lKgIIATIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgARI8jxQeVi-N3ACeACQAQCYAVSgAbIJqgECMjC4AQPIAQD4AQGYAhagAuoJqAIKwgIQEAAYAxjlAhjqAhiMAxiPAcICEBAuGAMY5QIY6gIYjAMYjwHCAgsQABiABBixAxiDAcICDhAuGIAEGMcBGI4FGK8BwgILEC4YgAQYsQMYgwHCAgUQLhiABMICCBAAGIAEGLEDwgIOEAAYgAQYsQMYgwEYigXCAhEQLhiABBixAxjRAxiDARjHAcICFBAuGIAEGLEDGIMBGMcBGIoFGK8BwgIEEAAYA8ICCBAuGIAEGLEDwgIHEAAYgAQYCpgDBJIHAjIyoAe8jAE&sclient=gws-wiz" >
+                <img src="img/ad2.png" alt="Advertisement 2" class="popup-image">
+            </a>
+        </div>
+    </div>
+
+    <!-- Popup 4 -->
+    <div id="popup3" class="popup">
+        <div class="popup-content">
+            <span class="close-btn bottom-left" id="close-btn3">&times;</span>
+            <a href="https://www.instagram.com/the_inconvenience_store_uk/" >
+                <img src="img/ad3.png" alt="Advertisement 4" class="popup-image">
+            </a>
+        </div>
+    </div>
+
+    <!-- Popup 4 -->
+    <div id="popup4" class="popup">
+        <div class="popup-content">
+            <span class="close-btn bottom-left" id="close-btn4">&times;</span>
+            <a href="https://www.ikea.com/" >
+                <img src="img/ad4.png" alt="Advertisement 1" class="popup-image">
+            </a>
+        </div>
+    </div>
+
+    <div class="confetti"></div>
+
+    <script src="log.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

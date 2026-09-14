@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link rel="icon" href="img/cs.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="terms-container" id="termsContent"></div>
+    <button id="acceptTermsButton">I've read and accept the terms and conditions</button>
+
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+          <h3>Oopsie! It looks like you read that a bit quickly. It is important that you have fully read the terms before accepting them. To make sure you really read them, please answer the following questions</h3>
+            <form id="quizForm">
+                <div id="quizQuestions"></div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    <audio id="backgroundMusic" src="music/atlantis.mp3"></audio>
+
+    <div id="failModal" class="modal">
+        <div class="modal-content">
+            <p>Sorry, it doesn't look like you read the terms. Please read them properly next time.</p>
+            <button id="failContinueButton">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const sessionToken = sessionStorage.getItem('termsToken');
+            console.log(token);
+            console.log(sessionToken);
+            if (!token || token !== sessionToken) {
+                window.location.href = 'index.html'; // Redirect to main page if token is invalid
+            }
+        });
+    </script>
+    <script src="log.js"></script>
+    <script src="terms.js"></script>
+</body>
+</html>
