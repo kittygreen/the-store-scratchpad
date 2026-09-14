@@ -28,8 +28,9 @@ const STEPS = [
 
 function stepHeader(currentFile) {
   const index = STEPS.findIndex(s => s.file === currentFile);
-  return '<div class="bar"><h1>Checkout</h1>' +
-         '<span class="impact">Step ' + (index + 1) + ' of ' + STEPS.length + '</span></div>';
+  /* A thin strip under the nav, not a second header bar. */
+  return '<p class="stepline impact">Checkout &mdash; step ' +
+         (index + 1) + ' of ' + STEPS.length + '</p>';
 }
 
 function nextStep(currentFile) {

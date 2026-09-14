@@ -1,0 +1,38 @@
+/* Site navigation.
+
+   Deliberately self-contained — no body or layout rules — so it can sit on
+   the shop pages (shop.css) and the older sign-up flow pages (styles.css)
+   without either stylesheet fighting it. */
+
+.site-nav {
+  background: #008645;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  position: relative;
+  z-index: 500;
+}
+.site-nav .brand {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.site-nav nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.site-nav nav a {
+  color: #FFC700;
+  text-decoration: none;
+  font-size: 17px;
+}
+.site-nav nav a:hover { text-decoration: underline; }
+.site-nav nav a.here { color: #fff; text-decoration: underline; }
+
+/* The express page drops all styling, and that includes this. */
+body.express .site-nav { background: #fff; border-bottom: 1px solid #000; font-family: Arial, Helvetica, sans-serif; }
+body.express .site-nav .brand { color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 16px; }
+body.express .site-nav nav a { color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+body.express .site-nav nav a.here { color: #000; font-weight: bold; }
