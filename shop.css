@@ -131,6 +131,9 @@ h1, h2, .impact, button {
 .card .price { display: block; padding: 4px 10px 12px; font-weight: bold; }
 
 .flag {
+  /* Above the shot — both are absolutely positioned, and the shot comes later
+     in the DOM, so without this the flag is painted underneath the photo. */
+  z-index: 2;
   position: absolute; top: 8px; right: -6px;
   background: #C0122B; color: #fff;
   font-family: 'Impact', sans-serif; font-size: 13px;
