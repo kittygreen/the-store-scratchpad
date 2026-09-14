@@ -55,9 +55,11 @@ document.querySelectorAll('.tinky').forEach(button => {
 const EURO_ANSWER = 'a floppy disc';
 const EURO_OPTIONS = ['the save icon', 'a flippy disc', 'a flappy disc', 'a floppy disc'];
 
+/* Fixed order, deliberately — "the save icon" first is the trap, and the
+   correct answer last. Not shuffled. */
 document.getElementById('euroForm').innerHTML =
-  shuffle(EURO_OPTIONS.slice()).map((team, i) =>
-    '<p><label><input type="radio" name="euro" value="' + team + '"> ' + team + '</label></p>'
+  EURO_OPTIONS.map(option =>
+    '<p><label><input type="radio" name="euro" value="' + option + '"> ' + option + '</label></p>'
   ).join('');
 
 document.getElementById('euroSubmit').addEventListener('click', () => {

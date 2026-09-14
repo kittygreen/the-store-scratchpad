@@ -351,3 +351,19 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
 /* Listings for a pixelated product show a 20px-wide image scaled up with no
    smoothing, so it reads as blocks rather than a blurry mess. */
 .card.pixelated .shot img { image-rendering: pixelated; }
+
+/* Basket quantity controls. */
+.qty { display: inline-flex; align-items: center; gap: 4px; }
+.qty button {
+  font-family: 'Impact', sans-serif; font-size: 16px; width: 28px; height: 28px;
+  border: 2px solid var(--ink); background: var(--lime); cursor: pointer;
+}
+.qty button:hover { background: var(--warm); }
+.qty input {
+  width: 46px; padding: 4px; text-align: center;
+  border: 2px solid var(--ink); font-family: inherit;
+}
+
+/* The promotion line, which is an extra charge and says so. */
+.promo-row td { color: #C0122B; font-weight: bold; }
+.promo-row td:first-child { font-family: 'Impact', sans-serif; font-size: 18px; letter-spacing: 0.02em; }

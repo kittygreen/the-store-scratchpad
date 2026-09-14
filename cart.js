@@ -27,6 +27,18 @@ function addToCart(id, qty) {
   return cart;
 }
 
+function setQuantity(id, qty) {
+  const cart = ensureForcedItems(readCart());
+  const product = findProduct(id);
+  /* The compulsory rizzla can go up but never down to nothing. */
+  const floor = (product && product.forced) ? 1 : 0;
+  const next = Math.max(floor, Math.min(99, qty));
+  if (next === 0) delete cart[id];
+  else cart[id] = next;
+  writeCart(cart);
+  return cart;
+}
+
 function removeFromCart(id) {
   const product = findProduct(id);
   if (product && product.forced) return readCart();   // it stays
@@ -37,10 +49,16 @@ function removeFromCart(id) {
 }
 
 /* Buy two, get charged for a third.
-   Calculated on the chosen quantity only — never on the running total, or
-   each bonus stone would earn a bonus stone of its own, indefinitely. */
+
+   Only applies when the quantity is an exact multiple of two. Two stones are
+   charged as three, four as six, six as nine — so the extra charged is half
+   the quantity. An odd quantity gets no promotion at all.
+
+   Calculated on the chosen quantity only, never on the running total, or each
+   bonus stone would earn a bonus stone of its own, indefinitely. */
 function bonusFor(qty) {
-  return Math.floor(qty / 2);
+  if (qty <= 0 || qty % 2 !== 0) return 0;
+  return (qty / 2) * 3 - qty;   // i.e. qty / 2
 }
 
 /* Expands the basket into the lines shown to the customer, which are the
@@ -67,11 +85,12 @@ function cartLines() {
       if (bonus > 0) {
         lines.push({
           id: product.id + '-offer',
-          name: '2 for 3 special offer!',
+          name: 'promotion applied!',
           qty: bonus,
           unit: product.price,
           total: product.price * bonus,
-          locked: true
+          locked: true,
+          promo: true
         });
       }
     }
@@ -84,8 +103,5 @@ function cartTotal() {
   return cartLines().reduce((sum, line) => sum + line.total, 0);
 }
 
-function cartNeedsAgeCheck() {
-  const cart = readCart();
-  return PRODUCTS.some(p => p.ageRestricted && cart[p.id]);
-}
+
 

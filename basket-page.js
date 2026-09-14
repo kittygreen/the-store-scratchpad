@@ -1,20 +1,28 @@
 /* Renders the basket. Every line that is charged for appears here with its
-   own price — including the compulsory rizzla and the 2-for-3 bonus. The
-   journey is the joke; what someone is paying is never obscured. */
+   own price — including the compulsory rizzla and the promotion. The journey
+   is the joke; what someone is paying is never obscured. */
 
 function render() {
   const lines = cartLines();
-  const rows = lines.map(line =>
-    '<tr>' +
+  const rows = lines.map(line => {
+    const qtyCell = line.promo || line.locked
+      ? line.qty
+      : '<span class="qty">' +
+          '<button data-step="-1" data-id="' + line.id + '" aria-label="one fewer">&minus;</button>' +
+          '<input type="number" min="0" max="99" value="' + line.qty + '" data-qty="' + line.id + '">' +
+          '<button data-step="1" data-id="' + line.id + '" aria-label="one more">+</button>' +
+        '</span>';
+
+    return '<tr' + (line.promo ? ' class="promo-row"' : '') + '>' +
       '<td>' + line.name +
-        (line.locked ? '<div class="locked">cannot be removed</div>' : '') +
+        (line.locked && !line.promo ? '<div class="locked">cannot be removed</div>' : '') +
       '</td>' +
-      '<td>' + line.qty + '</td>' +
+      '<td>' + qtyCell + '</td>' +
       '<td>' + formatPrice(line.total) + '</td>' +
       '<td>' + (line.locked ? '' :
         '<button data-remove="' + line.id + '">remove</button>') + '</td>' +
-    '</tr>'
-  ).join('');
+    '</tr>';
+  }).join('');
 
   document.getElementById('lines').innerHTML =
     '<tr><th>Item</th><th>Qty</th><th>Price</th><th></th></tr>' +
@@ -28,14 +36,25 @@ function render() {
       render();
     });
   });
+
+  document.querySelectorAll('[data-step]').forEach(button => {
+    button.addEventListener('click', () => {
+      const current = readCart()[button.dataset.id] || 0;
+      setQuantity(button.dataset.id, current + Number(button.dataset.step));
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-qty]').forEach(input => {
+    input.addEventListener('change', () => {
+      setQuantity(input.dataset.qty, parseInt(input.value, 10) || 0);
+      render();
+    });
+  });
 }
 
 render();
 
 document.getElementById('checkout').addEventListener('click', () => {
-  if (cartNeedsAgeCheck() && !agePassed()) {
-    window.location.href = 'age-gate.html';
-  } else {
-    window.location.href = 'packaging.html';
-  }
+  window.location.href = 'packaging.html';
 });

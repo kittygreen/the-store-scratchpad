@@ -48,7 +48,6 @@ const PRODUCTS = [
     name: 'Wet Rizzlas',
     price: 50,
     inStock: true,
-    ageRestricted: true,       // triggers the (entirely unnecessary) age gate
     forced: true,              // one lands in every basket and will not leave
     tilt: 6
   },
