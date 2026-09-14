@@ -1,0 +1,135 @@
+/* Visual unification for the sign-up flow.
+
+   The sign-up gauntlet predates the store and carries its own stylesheet with
+   Bootstrap-ish greens, rounded corners and a photographic background. This
+   sheet loads AFTER styles.css and restyles it to match the store: brand
+   yellow ground, white boxes with a hard black border and a green offset
+   shadow, Impact for headings and buttons, Courier New for body copy.
+
+   It deliberately touches appearance only. Every bit of positioning the
+   gauntlet depends on — the fleeing sign-up button, the four pop-ups, the
+   close-button corner classes, the CAPTCHA grid — is left exactly as it was,
+   because that is where the behaviour lives. */
+
+:root {
+  --yellow: #F8CF05;
+  --green: #008645;
+  --lime: #85C700;
+  --warm: #FFC700;
+  --ink: #111;
+}
+
+/* ---- Ground ------------------------------------------------------------- */
+
+body {
+  background: var(--yellow) !important;
+  color: var(--ink);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h1, h2, h3 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+/* ---- Boxes -------------------------------------------------------------- */
+
+.modal-content,
+#errorModal .modal-content,
+#quizModal .modal-content,
+#additionalFeedbackModal .modal-content,
+.terms-container,
+.form-container,
+.congratulations-container {
+  background: #fff;
+  border: 5px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 10px 10px 0 var(--green);
+  color: var(--ink);
+}
+
+/* ---- Buttons ------------------------------------------------------------
+   Matches .btn in shop.css: hard border, offset shadow, press-down on click. */
+
+button,
+#verifyButton,
+#acceptTermsButton,
+#bucketButton,
+#shopButton,
+#followInstagramButton,
+.form-container button {
+  background: var(--green);
+  color: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--ink);
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 18px;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+button:hover,
+#verifyButton:hover,
+#acceptTermsButton:hover,
+#bucketButton:hover,
+#followInstagramButton:hover,
+.form-container button:hover {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+button:active,
+.form-container button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* The sign-up button flees around the screen — its position and size are
+   behaviour, so only its skin is changed here. */
+#signupButton {
+  background: var(--green);
+  color: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--ink);
+  font-family: 'Impact', 'Arial Black', sans-serif;
+}
+#signupButton:hover { background: var(--lime); color: var(--ink); }
+
+/* ---- Forms -------------------------------------------------------------- */
+
+.form-container label { font-family: 'Courier New', Courier, monospace; }
+.form-container input,
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  padding: 8px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ---- Odds and ends ------------------------------------------------------ */
+
+.timer-bar {
+  background: #C0122B;
+  color: #fff;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+}
+
+/* The timer bar is fixed to the top of the viewport, so on the form page it
+   would sit on top of the navigation. Reserve room for it. */
+body.has-timer .site-nav { margin-top: 46px; }
+
+.image-grid img { border: 3px solid var(--ink); border-radius: 0; }
+.image-grid img.selected { outline: 4px solid var(--green); }
+
+.terms-container h1,
+.form-container h1,
+.congrats-container h1 { font-family: 'Impact', 'Arial Black', sans-serif; }
+
+/* The intro overlay on the gauntlet is suppressed (the store owns the intro
+   now) but keep its colours in step in case it is ever shown again. */
+.rush { background: var(--yellow); color: var(--green); }
