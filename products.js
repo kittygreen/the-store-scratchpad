@@ -77,7 +77,7 @@ const PRODUCTS = [
   {
     id: 'bucket-hat',
     name: 'Inconvenience Store Bucket Hat',
-    price: 2995,
+    price: 2500,             // matches the £25 on the pop-up ad
     inStock: true,
     img: 'img/bucket-hat.svg'
   },
