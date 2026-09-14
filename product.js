@@ -8,19 +8,25 @@ if (!product) {
   window.location.href = 'age-gate.html?next=' +
     encodeURIComponent('product.html?id=' + product.id);
 } else {
-  document.title = product.name + ' — The Inconvenience Store';
 
-  /* The one product that is, for reasons nobody has explained, in Ukrainian. */
-  const copy = product.locale === 'uk'
-    ? {
-        blurb: 'Лорем іпсум долор сіт амет. Цей опис товару чомусь українською. Ми не знаємо чому.',
-        add: 'ДОДАТИ ДО КОШИКА',
-        notify: 'ПОВІДОМТЕ МЕНЕ',
-        soldOut: 'РОЗПРОДАНО'
-      }
+
+  /* The one product that is, for reasons nobody has explained, not in English.
+     When it has a locale, everything goes — title, nav, buttons, the lot. */
+  const t = translations(product.locale);
+
+  const copy = t
+    ? { blurb: t.blurb, add: t.add, notify: t.notify, soldOut: t.soldOut }
     : { blurb: product.description || BLURB, add: 'ADD TO BASKET', notify: 'NOTIFY ME', soldOut: 'SOLD OUT' };
 
-  if (product.locale) document.documentElement.lang = product.locale;
+  const heading = (t && t.names[product.id]) || product.name;
+
+  if (product.locale) {
+    document.documentElement.lang = product.locale;
+    window.PAGE_LOCALE = product.locale;   // nav.js reads this
+    document.title = heading + ' — ' + t.brand;
+    const back = document.querySelector('a.btn.grey[href="index.html"]');
+    if (back) back.textContent = '\u2039 ' + t.back;
+  }
 
   let action;
   if (product.externalUrl) {
@@ -55,7 +61,7 @@ if (!product) {
   document.getElementById('product').innerHTML =
     '<img class="anim ' + entrance + '" src="' + product.img + '" alt="' + product.name + '">' +
     '<div>' +
-      '<h2>' + product.name + '</h2>' +
+      '<h2>' + heading + '</h2>' +
       '<p class="impact" style="font-size:26px">' + price + '</p>' +
       offer +
       notice +

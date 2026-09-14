@@ -45,7 +45,7 @@ const PRODUCTS = [
   },
   {
     id: 'wet-rizzlas',
-    name: 'Wet Rizzlas',
+    name: 'Wet Rizzla',
     price: 50,
     inStock: true,
     forced: true,              // one lands in every basket and will not leave
@@ -63,7 +63,7 @@ const PRODUCTS = [
     name: 'Scratched DVD',
     price: 101,
     inStock: true,
-    locale: 'uk',              // ISO 639-1 for Ukrainian, not the United Kingdom
+    locale: 'ka',              // ISO 639-1 for Georgian
     tilt: 4
   },
   {

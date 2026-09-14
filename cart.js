@@ -50,15 +50,18 @@ function removeFromCart(id) {
 
 /* Buy two, get charged for a third.
 
-   Only applies when the quantity is an exact multiple of two. Two stones are
-   charged as three, four as six, six as nine — so the extra charged is half
-   the quantity. An odd quantity gets no promotion at all.
+   Even quantities: half the quantity is charged as extra, so two are charged
+   as three and four as six. Odd quantities of three or more: take one off
+   first, then halve — so three and four both cost three extra-wise, as do
+   five and six. (Both branches come to Math.floor(qty / 2); they are written
+   out because that is how the rule was specified.)
 
    Calculated on the chosen quantity only, never on the running total, or each
    bonus stone would earn a bonus stone of its own, indefinitely. */
 function bonusFor(qty) {
-  if (qty <= 0 || qty % 2 !== 0) return 0;
-  return (qty / 2) * 3 - qty;   // i.e. qty / 2
+  if (qty < 2) return 0;
+  if (qty % 2 === 0) return qty / 2;        // 2->1, 4->2, 6->3
+  return (qty - 1) / 2;                      // 3->1, 5->2, 7->3
 }
 
 /* Expands the basket into the lines shown to the customer, which are the

@@ -18,8 +18,9 @@ function saveCheckout(patch) {
 
 /* Each step is on its own page, because one page would be convenient. */
 const STEPS = [
-  { file: 'packaging.html',  label: 'Packaging' },
-  { file: 'delivery.html',   label: 'Delivery time' },
+  { file: 'packaging.html',       label: 'Packaging' },
+  { file: 'delivery-method.html', label: 'Delivery method' },
+  { file: 'delivery.html',        label: 'Delivery time' },
   { file: 'extras.html',     label: 'Extras' },
   { file: 'address.html',    label: 'Address' },
   { file: 'confirm.html',    label: 'Confirm' },

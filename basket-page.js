@@ -14,9 +14,7 @@ function render() {
         '</span>';
 
     return '<tr' + (line.promo ? ' class="promo-row"' : '') + '>' +
-      '<td>' + line.name +
-        (line.locked && !line.promo ? '<div class="locked">cannot be removed</div>' : '') +
-      '</td>' +
+      '<td>' + line.name + '</td>' +
       '<td>' + qtyCell + '</td>' +
       '<td>' + formatPrice(line.total) + '</td>' +
       '<td>' + (line.locked ? '' :

@@ -5,11 +5,16 @@
    two stacked headers. */
 
 (function () {
+  /* A page can declare a locale (see product.js) and the bar follows it. */
+  const t = (typeof translations === 'function' && window.PAGE_LOCALE)
+    ? translations(window.PAGE_LOCALE)
+    : null;
+
   const LINKS = [
-    { label: 'Store',    href: 'index.html' },
-    { label: 'Services', href: 'services.html' },
-    { label: 'Sign Up',  href: 'signup.html' },
-    { label: 'Basket',   href: 'cart.html' }
+    { label: t ? t.store    : 'Store',    href: 'index.html' },
+    { label: t ? t.services : 'Services', href: 'services.html' },
+    { label: t ? t.signup   : 'Sign Up',  href: 'signup.html' },
+    { label: t ? t.basket   : 'Basket',   href: 'cart.html' }
   ];
 
   const file = window.location.pathname.split('/').pop() || 'index.html';
@@ -22,7 +27,8 @@
   const bar = document.createElement('div');
   bar.className = 'site-nav';
   bar.innerHTML =
-    '<a class="brand" href="index.html">The Inconvenience Store</a>' +
+    '<a class="brand" href="index.html">' +
+      (t ? t.brand : 'The Inconvenience Store') + '</a>' +
     '<nav>' + links + '</nav>';
 
   function mount() {

@@ -382,3 +382,57 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
 
 /* The step counter is gone from the first check; keep the rule for the second
    in case it comes back. */
+
+/* Checkout options that exist but cannot be chosen. */
+.dimmed { color: #777; }
+.unavailable { font-size: 13px; }
+
+/* ---- The cream pie ------------------------------------------------------
+   Sized far beyond the viewport and cropped to fill, because the image has
+   ragged transparent edges — at 1:1 the corners of the screen would show
+   through. Flies out of the middle, growing from nothing, spinning hard. */
+
+.pie-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+.pie-layer.going { opacity: 0; }
+
+.pie-layer .pie {
+  position: absolute;
+  width: 190vmax;
+  height: 190vmax;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  animation: pie-fly 0.65s cubic-bezier(.22, .9, .3, 1) both;
+}
+@keyframes pie-fly {
+  from { transform: scale(0.02) rotate(0deg); }
+  to   { transform: scale(1) rotate(880deg); }
+}
+
+.pie-layer .pie-text {
+  position: relative;
+  color: var(--green);
+  font-size: clamp(28px, 7vw, 76px);
+  text-align: center;
+  padding: 0 20px;
+  text-shadow: 3px 3px 0 #fff;
+  animation: pie-text 0.4s ease-out 0.55s both;
+}
+@keyframes pie-text {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* A full-screen object spinning at speed is a vestibular trigger, so anyone
+   who has asked for reduced motion gets the pie without the flight. */
+.pie-layer.calm .pie { animation: pie-fade 0.4s ease-out both; }
+.pie-layer.calm .pie-text { animation: pie-fade 0.4s ease-out 0.2s both; }
+@keyframes pie-fade { from { opacity: 0; } to { opacity: 1; } }
