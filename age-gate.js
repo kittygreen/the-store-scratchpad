@@ -32,7 +32,7 @@ function shuffle(array) {
 document.getElementById('tinkyGrid').innerHTML =
   shuffle(TINKY_OPTIONS.slice()).map(option =>
     '<button class="tinky" data-correct="' + (option.correct ? 'yes' : 'no') + '">' +
-      '<img src="img/' + option.id + '.svg" alt="' + option.label + '">' +
+      '<img src="img/' + option.id + '.jpg" alt="' + option.label + '">' +
     '</button>'
   ).join('');
 

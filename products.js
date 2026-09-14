@@ -34,6 +34,7 @@ const PRODUCTS = [
     name: 'Sandpaper Dildo',
     hiddenName: 'XXX Product',   // the real name is the reward for the age gate
     ageRestricted: true,
+    pixelated: true,             // unreadable in the listing, resolves on the product page
     notice: 'Not for use',
     price: 9423,
     inStock: true,
@@ -109,11 +110,17 @@ const PRODUCTS = [
   }
 ];
 
-/* Every product has both shots, named consistently. */
+/* Every product has both shots, named consistently. Pixelated products get a
+   deliberately tiny version in the listings — 20px wide, blown back up by the
+   browser — so you genuinely cannot make out what it is. */
 PRODUCTS.forEach(p => {
   p.imgGreen  = 'img/' + p.id + '-green.jpg';
   p.imgYellow = 'img/' + p.id + '-yellow.jpg';
   p.img = p.imgGreen;
+  if (p.pixelated) {
+    p.listGreen  = 'img/' + p.id + '-green-pixel.jpg';
+    p.listYellow = 'img/' + p.id + '-yellow-pixel.jpg';
+  }
 });
 
 const BLURB = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';

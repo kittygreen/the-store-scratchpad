@@ -347,3 +347,7 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
   box-shadow: 5px 5px 0 var(--green);
   margin: 0 0 20px;
 }
+
+/* Listings for a pixelated product show a 20px-wide image scaled up with no
+   smoothing, so it reads as blocks rather than a blurry mess. */
+.card.pixelated .shot img { image-rendering: pixelated; }

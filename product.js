@@ -45,9 +45,12 @@ if (!product) {
     ? '<p class="notice impact">' + product.notice + '</p>'
     : '';
 
-  /* A different terrible slide transition every time you land on a page. */
+  /* A different terrible slide transition every time you land on a page —
+     except on a pixelated product, which always resolves into focus instead. */
   const ENTRANCES = ['fly', 'spin', 'drop', 'swivel', 'zoom', 'wipe'];
-  const entrance = ENTRANCES[Math.floor(Math.random() * ENTRANCES.length)];
+  const entrance = product.pixelated
+    ? ''
+    : ENTRANCES[Math.floor(Math.random() * ENTRANCES.length)];
 
   document.getElementById('product').innerHTML =
     '<img class="anim ' + entrance + '" src="' + product.img + '" alt="' + product.name + '">' +
@@ -73,6 +76,10 @@ if (!product) {
         '</div>';
       document.querySelector('.wrap').appendChild(recommend);
     }
+  }
+
+  if (product.pixelated) {
+    pixelateIn(document.querySelector('.product img'), 3.5);
   }
 
   const addButton = document.getElementById('add');

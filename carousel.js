@@ -42,11 +42,13 @@ function carouselCard(item, index) {
   const style = 'style="--flash:' + flashSeconds(index) +
                 ';--tilt:' + (item.tilt || 0) + 'deg"';
 
-  return '<a class="card" href="' + href + '"' + target + ' ' + style + '>' +
+  const pixel = item.pixelated ? ' pixelated' : '';
+
+  return '<a class="card' + pixel + '" href="' + href + '"' + target + ' ' + style + '>' +
            flag +
            '<span class="shot">' +
-             '<img src="' + item.imgGreen + '" alt="' + label + '">' +
-             '<img class="y" src="' + item.imgYellow + '" alt="" aria-hidden="true">' +
+             '<img src="' + (item.listGreen || item.imgGreen) + '" alt="' + label + '">' +
+             '<img class="y" src="' + (item.listYellow || item.imgYellow) + '" alt="" aria-hidden="true">' +
            '</span>' +
            '<span class="name">' + label + '</span>' +
            '<span class="price">' + caption + '</span>' +
@@ -57,7 +59,8 @@ function renderCarousel(items) {
   const track = document.getElementById('track');
   const cards = items.map(carouselCard).join('');
   const dupe = items.map((item, i) =>
-    carouselCard(item, i).replace('class="card"', 'class="card dupe"')).join('');
+    carouselCard(item, i).replace(/class="card( pixelated)?"/,
+      (m, p) => 'class="card' + (p || '') + ' dupe"')).join('');
 
   track.innerHTML = cards + dupe;
 
