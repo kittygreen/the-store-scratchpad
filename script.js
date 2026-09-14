@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    let hasSeenIntro = localStorage.getItem('hasSeenIntro')
+    /* signup.html sets window.SKIP_INTRO — the intro now lives on the
+       products page, so the sign-up gauntlet goes straight to the pop-ups. */
+    let hasSeenIntro = window.SKIP_INTRO || localStorage.getItem('hasSeenIntro')
     overlay.style.display = 'none';
     if (!hasSeenIntro) {
         logEvent('IntroShown', { pageName: 'homepage' });
@@ -378,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
            element.textContent = "";
        });
 
-       type();
+       if (!window.SKIP_INTRO) type();
 
 
 

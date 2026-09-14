@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (shopButton) {
         shopButton.addEventListener('click', function() {
             logEvent('ButtonClicked', { pageName: 'congratulations', button: 'shop' });
-            window.location.href = 'shop.html';
+            window.location.href = 'index.html';
         });
     }
 

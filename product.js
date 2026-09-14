@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const product = findProduct(params.get('id'));
 
 if (!product) {
-  window.location.href = 'shop.html';
+  window.location.href = 'index.html';
 } else {
   document.title = product.name + ' — The Inconvenience Store';
 
@@ -27,7 +27,7 @@ if (!product) {
   } else if (!product.inStock) {
     /* Sold out routes into the sign-up flow that is already live. */
     action = '<p class="impact" style="font-size:24px">' + copy.soldOut + '</p>' +
-             '<a class="btn grey" href="index.html">' + copy.notify + '</a>';
+             '<a class="btn grey" href="signup.html">' + copy.notify + '</a>';
   } else {
     action = '<button class="btn" id="add">' + copy.add + '</button>';
   }

@@ -46,5 +46,5 @@ function requireRealBasket() {
     const product = findProduct(id);
     return product && !product.forced && cart[id] > 0;
   });
-  if (chosen.length === 0) window.location.href = 'shop.html';
+  if (chosen.length === 0) window.location.href = 'index.html';
 }

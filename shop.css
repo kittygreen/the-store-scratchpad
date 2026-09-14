@@ -33,6 +33,41 @@ h1, h2, .impact, button {
   flex-wrap: wrap;
 }
 .bar a { color: var(--warm); }
+
+.nav { display: flex; gap: 20px; align-items: center; }
+.nav a {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 17px; text-decoration: none; color: var(--warm);
+}
+.nav a:hover { text-decoration: underline; }
+.nav a.here { color: #fff; text-decoration: underline; }
+
+/* ---- Intro overlay on the products page --------------------------------
+   Same look as the original: yellow field, green monospace, click anywhere
+   to get past it. Shown once per browser. */
+
+.intro-overlay {
+  position: fixed; inset: 0;
+  background: var(--yellow); color: var(--green);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 20px;
+  z-index: 10000; cursor: pointer;
+}
+.intro-overlay .introtext {
+  margin: 0; white-space: pre-wrap;
+  border-right: 0.15em solid orange;
+  animation: blink 0.75s step-end infinite;
+}
+.intro-overlay .introtext.grow {
+  font-size: 30px;
+  transition: font-size 0.6s ease;
+}
+@keyframes blink { 50% { border-color: transparent; } }
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay .introtext { animation: none; }
+}
 .bar h1 { margin: 0; font-size: 22px; text-transform: uppercase; }
 
 .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 80px; }
