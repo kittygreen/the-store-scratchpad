@@ -41,8 +41,12 @@ if (!product) {
     ? '<p class="notice impact">' + product.notice + '</p>'
     : '';
 
+  /* A different terrible slide transition every time you land on a page. */
+  const ENTRANCES = ['fly', 'spin', 'drop', 'swivel', 'zoom', 'wipe'];
+  const entrance = ENTRANCES[Math.floor(Math.random() * ENTRANCES.length)];
+
   document.getElementById('product').innerHTML =
-    '<img class="fly" src="' + product.img + '" alt="' + product.name + '">' +
+    '<img class="anim ' + entrance + '" src="' + product.img + '" alt="' + product.name + '">' +
     '<div>' +
       '<h2>' + product.name + '</h2>' +
       '<p class="impact" style="font-size:26px">' + price + '</p>' +
@@ -51,6 +55,21 @@ if (!product) {
       '<p>' + copy.blurb + '</p>' +
       action +
     '</div>';
+
+  /* Recommendations. Reuses the carousel card so they look like the store. */
+  if (product.recommend) {
+    const picks = product.recommend.ids.map(findProduct).filter(Boolean);
+    if (picks.length) {
+      const recommend = document.createElement('div');
+      recommend.className = 'recommend';
+      recommend.innerHTML =
+        '<h3 class="impact">' + product.recommend.label + '</h3>' +
+        '<div class="recommend-cards">' +
+          picks.map((pick, i) => carouselCard(pick, i)).join('') +
+        '</div>';
+      document.querySelector('.wrap').appendChild(recommend);
+    }
+  }
 
   const addButton = document.getElementById('add');
   if (addButton) {

@@ -75,6 +75,7 @@ const PRODUCTS = [
     id: 'single-sock',
     name: 'Single Sock With Hole',
     description: 'Socks may vary.',
+    recommend: { label: 'Often bought with', ids: ['stone'] },
     price: 301,
     inStock: true,
     tilt: 9
@@ -82,6 +83,7 @@ const PRODUCTS = [
   {
     id: 'bucket-hat',
     name: 'Inconvenience Store Bucket Hat (Yellow)',
+    recommend: { label: 'Complete the look with...', ids: ['wet-rizzlas'] },
     price: 2500,             // matches the £25 on the pop-up ad
     inStock: true,
     tilt: -3
@@ -89,6 +91,7 @@ const PRODUCTS = [
   {
     id: 'bucket-hat-2',
     name: 'Inconvenience Store Bucket Hat (Green)',
+    recommend: { label: 'Complete the look with...', ids: ['wet-rizzlas'] },
     price: 2500,
     inStock: true,
     tilt: 5
