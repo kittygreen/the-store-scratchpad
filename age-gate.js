@@ -48,10 +48,12 @@ document.querySelectorAll('.tinky').forEach(button => {
   });
 });
 
-/* --- Check 2: the 2008 Euros -------------------------------------------- */
+/* --- Check 2: what is this? ---------------------------------------------
+   A floppy disc. Anyone young enough to need an age check has only ever seen
+   it as the save icon, which is the first option on the list. */
 
-const EURO_ANSWER = 'Spain';
-const EURO_OPTIONS = ['Spain', 'Germany', 'Italy', 'Netherlands'];
+const EURO_ANSWER = 'a floppy disc';
+const EURO_OPTIONS = ['the save icon', 'a flippy disc', 'a flappy disc', 'a floppy disc'];
 
 document.getElementById('euroForm').innerHTML =
   shuffle(EURO_OPTIONS.slice()).map((team, i) =>
@@ -70,7 +72,7 @@ document.getElementById('euroSubmit').addEventListener('click', () => {
     window.location.href = next;
   } else {
     document.getElementById('euroFeedback').textContent =
-      'Incorrect. You were, admittedly, a baby at the time.';
+      'Incorrect. It is a floppy disc. You have never saved anything to one.';
   }
 });
 

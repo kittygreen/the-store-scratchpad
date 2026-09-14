@@ -338,3 +338,12 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
 .tinky:hover { box-shadow: 4px 4px 0 var(--lime); }
 .tinky:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--green); }
 .tinky img { display: block; width: 100%; }
+
+/* The image in the second age check. */
+.quiz-image {
+  display: block;
+  width: 180px;
+  border: 4px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--green);
+  margin: 0 0 20px;
+}
