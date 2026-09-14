@@ -85,14 +85,15 @@ h1, h2, .impact, button {
 }
 .track {
   display: flex;
-  gap: 20px;
   width: max-content;
-  animation: slide 90s linear infinite;
+  animation: slide 180s linear infinite;
 }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 .card {
   flex: 0 0 240px;
+  /* Spacing as a margin, not a flex gap — see the note in shop.js. */
+  margin-right: 20px;
   background: #fff;
   border: 4px solid var(--ink);
   box-shadow: 6px 6px 0 var(--green);
@@ -101,9 +102,33 @@ h1, h2, .impact, button {
   display: block;
   position: relative;
 }
-.card img { width: 100%; display: block; border-bottom: 4px solid var(--ink); }
-.card .name { font-family: 'Impact', sans-serif; font-size: 17px; padding: 8px 10px 0; }
-.card .price { padding: 4px 10px 12px; font-weight: bold; }
+
+/* The shot flashes between the green and yellow version of the product.
+   The crop is rotated per product so the subjects aren't all dead level,
+   and scaled up so rotating never exposes a corner. */
+.card .shot {
+  display: block;
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-bottom: 4px solid var(--ink);
+}
+.card .shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(var(--tilt, 0deg)) scale(1.22);
+}
+.card .shot img.y { animation: flash var(--flash, 2s) steps(1) infinite; }
+@keyframes flash {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.card .name { display: block; font-family: 'Impact', sans-serif; font-size: 17px; padding: 8px 10px 0; }
+.card .price { display: block; padding: 4px 10px 12px; font-weight: bold; }
 
 .flag {
   position: absolute; top: 8px; right: -6px;
@@ -115,6 +140,8 @@ h1, h2, .impact, button {
 
 /* Anyone who has asked their OS to reduce motion gets a plain grid instead.
    The joke is not worth making someone motion-sick. */
+/* Anyone who has asked their OS to reduce motion gets a plain grid, and no
+   flashing at all. The joke is not worth making someone ill. */
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation: none;
@@ -123,6 +150,7 @@ h1, h2, .impact, button {
     justify-content: center;
   }
   .track .dupe { display: none; }
+  .card .shot img.y { animation: none; opacity: 0; }
 }
 
 /* ---- Express checkout (the boring escape hatch) --------------------------

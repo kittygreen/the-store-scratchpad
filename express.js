@@ -16,4 +16,4 @@ document.getElementById('list').innerHTML = sorted.map(product => {
          '</span><span>' + price + '</span></a></li>';
 }).join('');
 
-startNagTimer({ seconds: 10, message: 'need more time?', page: 'express' });
+startNagTimer({ seconds: 5, message: 'need more time?', page: 'express' });

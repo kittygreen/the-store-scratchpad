@@ -14,7 +14,7 @@ if (!product) {
         notify: 'ПОВІДОМТЕ МЕНЕ',
         soldOut: 'РОЗПРОДАНО'
       }
-    : { blurb: BLURB, add: 'ADD TO BASKET', notify: 'NOTIFY ME', soldOut: 'SOLD OUT' };
+    : { blurb: product.description || BLURB, add: 'ADD TO BASKET', notify: 'NOTIFY ME', soldOut: 'SOLD OUT' };
 
   if (product.locale) document.documentElement.lang = product.locale;
 

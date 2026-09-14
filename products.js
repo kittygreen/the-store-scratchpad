@@ -1,6 +1,10 @@
 /* Product catalogue.
    Plain JS rather than JSON so the pages work over file:// as well as http.
-   Prices are in pence — never floats, or the basket totals drift. */
+   Prices are in pence — never floats, or the basket totals drift.
+
+   Each product has a green and a yellow shot. The carousel flashes between
+   them; the product page uses the green one. `tilt` is the angle the card
+   crop is rotated by, so the subjects aren't all dead level. */
 
 const PRODUCTS = [
   {
@@ -9,21 +13,21 @@ const PRODUCTS = [
     price: 201,
     inStock: true,
     offer: '2for3',            // buy two, get charged for a third
-    img: 'img/stone.svg'
+    tilt: -5
   },
   {
     id: 'garlic-mouthwash',
     name: 'Garlic Mouthwash',
     price: 201,
     inStock: false,
-    img: 'img/garlic-mouthwash.svg'
+    tilt: 3
   },
   {
     id: 'bent-tent-peg',
     name: 'Bent Tent Peg',
     price: 301,
     inStock: true,
-    img: 'img/bent-tent-peg.svg'
+    tilt: 7
   },
   {
     id: 'sandpaper-dildo',
@@ -34,7 +38,7 @@ const PRODUCTS = [
     chequeOnly: true,          /* Never enters the basket and never reaches
                                   Stripe, which neatly sidesteps their rules on
                                   adult products. See BUILD-NOTES.md. */
-    img: 'img/sandpaper-dildo.svg'
+    tilt: -2
   },
   {
     id: 'wet-rizzlas',
@@ -43,14 +47,14 @@ const PRODUCTS = [
     inStock: true,
     ageRestricted: true,       // triggers the (entirely unnecessary) age gate
     forced: true,              // one lands in every basket and will not leave
-    img: 'img/wet-rizzlas.svg'
+    tilt: 6
   },
   {
     id: 'used-napkin',
     name: 'Napkin (used)',
     price: 101,
     inStock: true,
-    img: 'img/used-napkin.svg'
+    tilt: -8
   },
   {
     id: 'scratched-dvd',
@@ -58,28 +62,36 @@ const PRODUCTS = [
     price: 101,
     inStock: true,
     locale: 'uk',              // ISO 639-1 for Ukrainian, not the United Kingdom
-    img: 'img/scratched-dvd.svg'
+    tilt: 4
   },
   {
     id: 'waterproof-loo-roll',
     name: 'Waterproof Loo Roll',
     price: 301,
     inStock: false,
-    img: 'img/waterproof-loo-roll.svg'
+    tilt: -6
   },
   {
     id: 'single-sock',
-    name: 'Single Sock With Hole (used)',
+    name: 'Single Sock With Hole',
+    description: 'Socks may vary.',
     price: 301,
     inStock: true,
-    img: 'img/single-sock.svg'
+    tilt: 9
   },
   {
     id: 'bucket-hat',
-    name: 'Inconvenience Store Bucket Hat',
+    name: 'Inconvenience Store Bucket Hat (Yellow)',
     price: 2500,             // matches the £25 on the pop-up ad
     inStock: true,
-    img: 'img/bucket-hat.svg'
+    tilt: -3
+  },
+  {
+    id: 'bucket-hat-2',
+    name: 'Inconvenience Store Bucket Hat (Green)',
+    price: 2500,
+    inStock: true,
+    tilt: 5
   },
   {
     id: 'ryanair',
@@ -88,9 +100,16 @@ const PRODUCTS = [
     inStock: true,
     pinLast: true,             // stays at the bottom even when sorted
     newTab: true,
-    img: 'img/ryanair.svg'
+    tilt: -7
   }
 ];
+
+/* Every product has both shots, named consistently. */
+PRODUCTS.forEach(p => {
+  p.imgGreen  = 'img/' + p.id + '-green.jpg';
+  p.imgYellow = 'img/' + p.id + '-yellow.jpg';
+  p.img = p.imgGreen;
+});
 
 const BLURB = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
 
