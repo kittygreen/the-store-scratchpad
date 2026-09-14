@@ -78,17 +78,28 @@ document.getElementById('euroSubmit').addEventListener('click', () => {
   }
 });
 
-/* Browsers block autoplay audio until the user has interacted with the page,
-   so the siren is behind a button. It is also therefore muteable, which
-   matters more than the gag does. */
-const sirenButton = document.getElementById('siren');
-const sirenAudio = document.getElementById('sirenAudio');
-sirenButton.addEventListener('click', () => {
-  if (sirenAudio.paused) {
-    sirenAudio.play();
-    sirenButton.textContent = '🔇 SILENCE THE SIREN';
-  } else {
-    sirenAudio.pause();
-    sirenButton.textContent = '🔊 ENABLE SIREN';
+/* The alarm. No control, by design.
+
+   Browsers block autoplay until the page has been interacted with, and how
+   strictly varies. So: try immediately, and if the browser refuses, start on
+   the first click or key press instead. Either way it arrives on its own and
+   there is nothing on screen to turn it off. */
+const alarm = document.getElementById('alarm');
+
+function startAlarm() {
+  const attempt = alarm.play();
+  if (attempt && typeof attempt.catch === 'function') {
+    attempt.catch(() => {
+      /* Refused. Wait for any interaction, then go. */
+      const onFirstInteraction = () => {
+        alarm.play().catch(() => {});
+        document.removeEventListener('pointerdown', onFirstInteraction);
+        document.removeEventListener('keydown', onFirstInteraction);
+      };
+      document.addEventListener('pointerdown', onFirstInteraction);
+      document.addEventListener('keydown', onFirstInteraction);
+    });
   }
-});
+}
+
+startAlarm();

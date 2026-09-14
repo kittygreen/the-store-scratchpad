@@ -368,3 +368,6 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
 /* The promotion line, which is an extra charge and says so. */
 .promo-row td { color: #C0122B; font-weight: bold; }
 .promo-row td:first-child { font-family: 'Impact', sans-serif; font-size: 18px; letter-spacing: 0.02em; }
+
+/* The step counter is gone from the first check; keep the rule for the second
+   in case it comes back. */
