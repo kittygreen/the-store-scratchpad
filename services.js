@@ -8,7 +8,11 @@ const SERVICES = [
   { id: 'clothes-shrinking', name: 'Clothes Shrinking', tilt: -6 },
   { id: 'car-scratching',    name: 'Car Scratching',    tilt: 4 },
   { id: 'drain-blocking',    name: 'Drain Blocking',    tilt: -3 },
-  { id: 'screen-cracking',   name: 'Screen Cracking',   tilt: 7 }
+  { id: 'screen-cracking',   name: 'Screen Cracking',   tilt: 7 },
+  { id: 'delayed-train',     name: 'Delayed Train',     tilt: -8 },
+  { id: 'traffic-jam',       name: 'Traffic Jam',       tilt: 5 },
+  { id: 'infinite-buffering', name: 'Infinite Buffering', tilt: -4 },
+  { id: 'spam',              name: 'Spam',              tilt: 9 }
 ];
 
 SERVICES.forEach(s => {
