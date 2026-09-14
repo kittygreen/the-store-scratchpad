@@ -112,6 +112,13 @@ h1, h2, .impact, button {
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-bottom: 4px solid var(--ink);
+  /* The shot is scaled 1.22 so rotation never exposes a corner, which makes it
+     overflow this box by design. `overflow: hidden` clips it — but Safari lets
+     a child that has been promoted to its own compositing layer (as the
+     flashing image is) escape the clip, spilling over the name and price
+     below. Giving this element its own layer makes the clip hold. */
+  transform: translateZ(0);
+  isolation: isolate;
 }
 .card .shot img {
   position: absolute;
@@ -127,6 +134,10 @@ h1, h2, .impact, button {
   50.01%, 100% { opacity: 0; }
 }
 
+/* Belt and braces: even if a shot did escape its clip, the labels paint over
+   it rather than under. */
+.card .name,
+.card .price { position: relative; z-index: 1; background: #fff; }
 .card .name { display: block; font-family: 'Impact', sans-serif; font-size: 17px; padding: 8px 10px 0; }
 .card .price { display: block; padding: 4px 10px 12px; font-weight: bold; }
 
