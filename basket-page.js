@@ -53,6 +53,17 @@ function render() {
 
 render();
 
+/* Arrived here because checkout had nothing to work with. Say so, rather than
+   silently dumping someone back at the start. */
+if (new URLSearchParams(location.search).get('empty')) {
+  const note = document.createElement('p');
+  note.className = 'impact';
+  note.style.color = '#C0122B';
+  note.textContent = 'Put something in your basket first.';
+  const table = document.getElementById('lines').closest('table');
+  table.parentNode.insertBefore(note, table.nextSibling);
+}
+
 document.getElementById('checkout').addEventListener('click', () => {
   window.location.href = 'packaging.html';
 });

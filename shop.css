@@ -86,8 +86,11 @@ h1, h2, .impact, button {
 .track {
   display: flex;
   width: max-content;
-  animation: slide 150s linear infinite;
 }
+/* The animation is added by carousel.js only AFTER the random start offset is
+   set. Applying a negative animation-delay to an already-running animation
+   makes it jump to the new position, which looked like the page reloading. */
+.track.rolling { animation: slide 150s linear infinite; }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 .card {
@@ -119,6 +122,10 @@ h1, h2, .impact, button {
      below. Giving this element its own layer makes the clip hold. */
   transform: translateZ(0);
   isolation: isolate;
+  /* Safari still lets a composited child escape overflow:hidden even with the
+     above. A mask forces it to clip. Harmless everywhere else. */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 }
 .card .shot img {
   position: absolute;

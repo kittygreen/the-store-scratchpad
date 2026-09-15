@@ -73,4 +73,6 @@ function renderCarousel(items) {
      rather than pausing it; because the track is two identical copies the
      loop stays seamless wherever it starts. */
   track.style.animationDelay = '-' + (Math.random() * CYCLE_SECONDS).toFixed(1) + 's';
+  /* Only start moving once the offset is in place — see .track.rolling. */
+  track.classList.add('rolling');
 }

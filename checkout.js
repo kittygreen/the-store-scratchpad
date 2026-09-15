@@ -41,12 +41,16 @@ function nextStep(currentFile) {
 
 /* A basket with nothing chosen in it should not be able to reach checkout.
    The forced rizzla means the basket is never technically empty, so this
-   checks for something the customer actually picked. */
+   checks for something the customer actually picked.
+
+   Bounces to the basket, not the storefront. Sending someone back to
+   index.html threw them into the typewriter intro with no explanation, which
+   reads as the site having crashed. */
 function requireRealBasket() {
   const cart = readCart();
   const chosen = Object.keys(cart).filter(id => {
     const product = findProduct(id);
     return product && !product.forced && cart[id] > 0;
   });
-  if (chosen.length === 0) window.location.href = 'index.html';
+  if (chosen.length === 0) window.location.href = 'cart.html?empty=1';
 }
