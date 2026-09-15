@@ -426,13 +426,15 @@ table.basket .total td { font-family: 'Impact', sans-serif; font-size: 20px; bor
 
 .pie-layer .pie-text {
   position: relative;
-  color: var(--green);
   font-size: clamp(28px, 7vw, 76px);
   text-align: center;
   padding: 0 20px;
-  text-shadow: 3px 3px 0 #fff;
   animation: pie-text 0.4s ease-out 0.55s both;
 }
+/* The text is the punchline, so it has to read against whatever it landed on. */
+.pie-layer .pie-text.on-light { color: var(--green); text-shadow: 3px 3px 0 #fff; }
+.pie-layer .pie-text.on-dark  { color: #fff; text-shadow: 4px 4px 0 #111; }
+
 @keyframes pie-text {
   from { opacity: 0; transform: scale(0.7); }
   to   { opacity: 1; transform: scale(1); }
